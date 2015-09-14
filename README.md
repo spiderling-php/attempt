@@ -8,8 +8,8 @@ Attempt
 
 Retry something until it works
 
-Instalation
------------
+Installation
+------------
 
 Install via composer
 
