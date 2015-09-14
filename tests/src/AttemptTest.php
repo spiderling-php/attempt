@@ -59,6 +59,8 @@ class AttemptTest extends PHPUnit_Framework_TestCase
     /**
      * @covers ::execute
      * @covers ::getCurrent
+     * @covers ::setTimeout
+     * @covers ::setStep
      */
     public function testExecuteTimeout()
     {
@@ -71,10 +73,11 @@ class AttemptTest extends PHPUnit_Framework_TestCase
 
         $attempt = new Attempt($callback);
         $attempt->setTimeout(200);
+        $attempt->setStep(80);
 
         $attempt->execute();
 
-        $this->assertEquals(4, $attempt->getCurrent());
-        $this->assertEquals(4, $increment);
+        $this->assertEquals(3, $attempt->getCurrent());
+        $this->assertEquals(3, $increment);
     }
 }

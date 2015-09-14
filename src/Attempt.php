@@ -29,7 +29,12 @@ class Attempt
     private $timeout = 2000;
 
     /**
-     * @param mixed $callback
+     * @var callable
+     */
+    private $callback;
+
+    /**
+     * @param callable $callback
      */
     public function __construct(callable $callback)
     {
