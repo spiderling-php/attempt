@@ -24,7 +24,12 @@ $attempt = new Attempt(function () {
     return ... // Try to do something
 });
 
+// Configure timeout and frequency of tries
 $attempt->setTimeout(3000);
+$attempt->setStep(50);
+
+// Check how many times it will try before timing out
+echo $attempt->getTries();
 
 return $attempt->execute();
 ```
