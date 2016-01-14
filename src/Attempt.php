@@ -2,6 +2,8 @@
 
 namespace SP\Attempt;
 
+use RuntimeException;
+
 /**
  * Attempting to do something several times with a small interval, immidiately return on success
  *
@@ -127,6 +129,23 @@ class Attempt
                 usleep($this->step * 1000);
             }
         } while (!$result && $this->hasTriesLeft());
+
+        return $result;
+    }
+
+    /**
+     * Like normal execute, but throw RuntimeException on time out
+     *
+     * @param  string $message optional message
+     * @return mixed
+     */
+    public function executeOrFail($message = 'Timed out attempting to execute callback')
+    {
+        $result = $this->execute();
+
+        if (empty($result)) {
+            throw new RuntimeException($message);
+        }
 
         return $result;
     }

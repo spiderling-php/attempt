@@ -56,6 +56,27 @@ class AttemptTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(4, $increment);
     }
 
+
+    /**
+     * @covers ::executeOrFail
+     */
+    public function testExecuteOrFail()
+    {
+        $increment = 0;
+
+        $callback = function (Attempt $attempt) use (& $increment) {
+            $increment += 1;
+            return $attempt->getCurrent() === 3;
+        };
+
+        $attempt = new Attempt($callback);
+
+        $attempt->executeOrFail();
+
+        $this->assertEquals(4, $attempt->getCurrent());
+        $this->assertEquals(4, $increment);
+    }
+
     /**
      * @covers ::execute
      * @covers ::getCurrent
@@ -79,5 +100,22 @@ class AttemptTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(3, $attempt->getCurrent());
         $this->assertEquals(3, $increment);
+    }
+
+    /**
+     * @covers ::executeOrFail
+     */
+    public function testExecuteOrFailTimeout()
+    {
+        $callback = function () {
+            return false;
+        };
+
+        $attempt = new Attempt($callback);
+        $attempt->setTimeout(80);
+
+        $this->setExpectedException('RuntimeException', 'Timed out attempting to execute callback');
+
+        $attempt->executeOrFail();
     }
 }
