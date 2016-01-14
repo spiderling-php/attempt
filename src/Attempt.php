@@ -137,6 +137,7 @@ class Attempt
      * Like normal execute, but throw RuntimeException on time out
      *
      * @param  string $message optional message
+     * @throws RuntimeException on time out
      * @return mixed
      */
     public function executeOrFail($message = 'Timed out attempting to execute callback')
