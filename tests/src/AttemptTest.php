@@ -53,7 +53,11 @@ class AttemptTest extends PHPUnit_Framework_TestCase
         $attempt->execute();
 
         $this->assertEquals(4, $attempt->getCurrent());
-        $this->assertEquals(4, $increment);
+        $this->assertEquals(
+            4,
+            $increment,
+            'The function should be called the same amount of times as reported by getCurrent'
+        );
     }
 
 
@@ -74,7 +78,11 @@ class AttemptTest extends PHPUnit_Framework_TestCase
         $attempt->executeOrFail();
 
         $this->assertEquals(4, $attempt->getCurrent());
-        $this->assertEquals(4, $increment);
+        $this->assertEquals(
+            4,
+            $increment,
+            'The function should be called the same amount of times as reported by getCurrent'
+        );
     }
 
     /**
@@ -99,7 +107,11 @@ class AttemptTest extends PHPUnit_Framework_TestCase
         $attempt->execute();
 
         $this->assertEquals(3, $attempt->getCurrent());
-        $this->assertEquals(3, $increment);
+        $this->assertEquals(
+            3,
+            $increment,
+            'The function should be called the same amount of times as reported by getCurrent'
+        );
     }
 
     /**
